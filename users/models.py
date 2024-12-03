@@ -4,9 +4,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 
 class UserManager(BaseUserManager):
-    def get_object_by_id(self, user_id):
+    def get_object_by_id(self, id):
         try:
-            instance = self.get(user_id=self.user.id)
+            instance = self.get(id=id)
             return instance
         except (ObjectDoesNotExist, ValueError, TypeError):
             return 404
