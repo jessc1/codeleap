@@ -1,12 +1,14 @@
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import viewsets
-from users.serializers import UserSerializer
+from users.serializers import UsersSerializer
 from users.models import User
 
-class UserViewSet(viewsets.ModelViewSet):
-    http_method_names = ('patch', 'get')
-    permission_classes = (AllowAny,)
-    serializer_class = UserSerializer
+class UsersViewSet(viewsets.ModelViewSet):
+    http_method_names = ('patch', 'get', 'delete', 'post')
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = UsersSerializer
 
     def get_queryset(self):
         if self.request.user.is_superuser:

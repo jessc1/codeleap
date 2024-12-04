@@ -11,13 +11,18 @@ class UserManager(BaseUserManager):
         except (ObjectDoesNotExist, ValueError, TypeError):
             return 404
 
-    def create_user(self, username, password=None, **kwargs):
+    def create_user(self, username, title, content, password=None, **kwargs):
         """ Create a user with username and password """
         if username is None:
             raise TypeError("Expected  username")
+        if title is None:
+            raise TypeError("Expected title")
+        if content is None:
+            raise TypeError("Expected content")
         if password is None:
             raise TypeError('Expected password')
-        user = self.model(username=username, **kwargs)
+        
+        user = self.model(username=username, title=title, content=content, **kwargs)
         user.set_password(password)
         user.save(using=self._db)
 
@@ -36,9 +41,9 @@ class UserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(db_index=True, max_length=255, unique=True)
+    username = models.CharField(db_index=True, max_length=128, unique=True)
     created = models.DateTimeField(auto_now=True)
-    title = models.TextField()
+    title = models.CharField(max_length=255)
     content = models.TextField()
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
