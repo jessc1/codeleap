@@ -1,5 +1,6 @@
 
 ## Endpoints:
+* Api documentation http://127.0.0.1:8000/swagger/
 * To get access to the api is necessary the token: post http://127.0.0.1:8000/api/token/ and including the token in the authentication bearer and token
 * Users : list of users http://127.0.0.1:8000/users/
 * User: user/{id} user detail http://127.0.0.1:8000/users/id
