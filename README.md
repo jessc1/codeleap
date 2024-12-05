@@ -13,7 +13,9 @@ install the necessary packages
 ```
 pip  install -r requirements.txt
 ```
-Commands:
+
+create the database with user, database name, password, port and host in the settings.py
+commands:
 
  to create database migration
 ```
