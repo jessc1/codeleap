@@ -1,14 +1,18 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.pagination import PageNumberPagination
 from rest_framework import viewsets
 from users.serializers import UsersSerializer
 from users.models import User
+
 
 class UsersViewSet(viewsets.ModelViewSet):
     http_method_names = ('patch', 'get', 'delete', 'post')
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
     serializer_class = UsersSerializer
+    pagination_class = PageNumberPagination #add pagination to the list of users
+    
 
     def get_queryset(self):
         if self.request.user.is_superuser:
